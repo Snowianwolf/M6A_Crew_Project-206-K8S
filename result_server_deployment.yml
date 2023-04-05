@@ -1,0 +1,23 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: result-server-deploy
+spec:
+  replicas: 1 
+  selector:  
+    matchLabels:
+      app: result-server
+  template: 
+    metadata:
+      labels:
+        app: result-server
+    spec:
+      containers:
+      - name: result-server-pod
+        image: ozgurtaylankarakoc/resultserver:1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        envFrom:
+        - secretRef:
+            name: mysecret

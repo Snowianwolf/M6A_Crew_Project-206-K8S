@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-server-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-server
+  template:
+    metadata:
+      labels:
+        app: web-server
+    spec:
+      containers:
+        - name: web-server-pod
+          image: ozgurtaylankarakoc/webserver:1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          envFrom:
+          - secretRef:
+              name: mysecret
